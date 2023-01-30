@@ -10,6 +10,7 @@ import java.util.Map;
 
 import uniandes.dpoo.taller0.modelo.Atleta;
 import uniandes.dpoo.taller0.modelo.Genero;
+import uniandes.dpoo.taller0.modelo.Pais;
 import uniandes.dpoo.taller0.procesamiento.CalculadoraEstadisticas;
 import uniandes.dpoo.taller0.procesamiento.LoaderOlimpicos;
 
@@ -94,6 +95,25 @@ public class ConsolaOlimpicos {
 		System.out.println("12. Consultar el porcentaje de atletas que son medallistas");
 		System.out.println("13. Consultar país al que representa un atleta");
 		System.out.println("14. Salir de la aplicación\n");
+	}
+
+	/**
+	 * MODIFICACIONES TALLER
+	 */
+
+	/**
+	 * Le muestra al usuario el país al cual representa el atleta que ingrese por
+	 * input
+	 */
+
+	private void ejecutarPaisDeAtleta() {
+		System.out.println("\n" + "País por atleta" + "\n");
+
+		String nombreAtleta = input("Por favor ingrese el nombre del atleta a consultar");
+
+		Pais pais = calculadora.buscarPaisDeAtleta(nombreAtleta);
+		System.out.println(nombreAtleta + " representa al país: " + pais.darNombre());
+
 	}
 
 	/**
