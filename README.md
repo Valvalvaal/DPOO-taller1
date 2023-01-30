@@ -12,5 +12,8 @@ Añadí la opción de consultar el país al cual un atleta representa. Esta se e
   ![no encuentra atleta](https://github.com/Valvalvaal/DPOO-taller1/blob/main/docs/opcion13-no-encuentra.png)
 
 ## Modificación 2: Agregar un nuevo programa
-
+Añadí las líneas indicadas en el taller y arreglé los errores que estaba msotrando el IDE.
 <br/>
+
+- Funcionamiento: Carga la infromación de los atletas e imprime el país con más medallas.
+  ![modificacion 2](https://github.com/Valvalvaal/DPOO-taller1/blob/main/docs/modificacion2.png)
