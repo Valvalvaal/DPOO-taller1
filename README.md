@@ -4,7 +4,8 @@ En este repositiorio se encuentran las modificaciones hechas al proyecto Juegos 
 
 [link text](https://www.google.com/webhp?hl=en&ictx=2&sa=X&ved=0ahUKEwjnpZm7gvD8AhUjszEKHTbbAQYQPQgJ)
 
-**Modificación 1:** Agregar una nueva opción
+**Modificación 1: Agregar una nueva opción**
+<br/>
 <br/>
   Añadí la opción de consultar el país al cual un atleta representa. Esta se encuentra como la opción 13 del menú. 
   <br/>
@@ -13,3 +14,8 @@ En este repositiorio se encuentran las modificaciones hechas al proyecto Juegos 
   * Si no encuentra el atleta:
   ![no encuentra atleta](https://github.com/Valvalvaal/DPOO-taller1/blob/main/docs/opcion13-no-encuentra.png)
   
+ <br/>
+ <br/>
+**Modificación 2: Agregar un nuevo programa**
+<br/>
+<br/>
