@@ -1,6 +1,6 @@
 # DPOO-taller1
 
-En este repositiorio se encuentran las modificaciones hechas al proyecto Juegos Olímpicos correspondiente al taller 1 de la clase DPOO. 
+En este repositiorio se encuentran las modificaciones hechas al proyecto de los Juegos Olímpicos correspondiente al taller 1 de la clase DPOO. 
 
 ## Modificación 1: Agregar una nueva opción
 Añadí la opción de consultar el país al cual un atleta representa. Esta se encuentra como la opción 13 del menú. 
