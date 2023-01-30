@@ -19,8 +19,7 @@ import uniandes.dpoo.taller0.modelo.Pais;
  * sobre los atletas, países y eventos, pero no tiene información sobre las
  * participaciones (eso es responsabilidad de los atletas y de los eventos).
  */
-public class CalculadoraEstadisticas
-{
+public class CalculadoraEstadisticas {
 	// ************************************************************************
 	// Atributos
 	// ************************************************************************
@@ -56,8 +55,7 @@ public class CalculadoraEstadisticas
 	 *                los países y los valores son los países.
 	 * @param eventos Una lista con los eventos.
 	 */
-	public CalculadoraEstadisticas(Map<String, Atleta> atletas, Map<String, Pais> paises, List<Evento> eventos)
-	{
+	public CalculadoraEstadisticas(Map<String, Atleta> atletas, Map<String, Pais> paises, List<Evento> eventos) {
 		this.atletas = new ArrayList<Atleta>(atletas.values());
 		this.paises = new ArrayList<Pais>(paises.values());
 		this.eventos = eventos;
@@ -75,14 +73,11 @@ public class CalculadoraEstadisticas
 	 * @return Un mapa donde las llaves son los nombres de los eventos y los valores
 	 *         son los atletas que participaron en cada evento
 	 */
-	public Map<String, List<Atleta>> atletasPorAnio(int anio)
-	{
+	public Map<String, List<Atleta>> atletasPorAnio(int anio) {
 		Map<String, List<Atleta>> resultado = new HashMap<String, List<Atleta>>();
 
-		for (Evento unEvento : eventos)
-		{
-			if (unEvento.darAnio() == anio)
-			{
+		for (Evento unEvento : eventos) {
+			if (unEvento.darAnio() == anio) {
 				List<Atleta> atletasEnEvento = unEvento.darAtletasEnEvento();
 				resultado.put(unEvento.darDeporte(), atletasEnEvento);
 			}
@@ -106,12 +101,10 @@ public class CalculadoraEstadisticas
 	 * 
 	 *         Si el nombre no corresponde al de ningún atleta, retorna null.
 	 */
-	public List<Map<String, Object>> medallasEnRango(int anioInicial, int anioFinal, String nombreAtleta)
-	{
+	public List<Map<String, Object>> medallasEnRango(int anioInicial, int anioFinal, String nombreAtleta) {
 		List<Map<String, Object>> resultado = new ArrayList<Map<String, Object>>();
 		Atleta elAtleta = buscarAtleta(nombreAtleta);
-		if (elAtleta != null)
-		{
+		if (elAtleta != null) {
 			resultado = elAtleta.contarMedallasEnRango(anioInicial, anioFinal);
 		}
 
@@ -131,12 +124,10 @@ public class CalculadoraEstadisticas
 	 * 
 	 *         Si no se encuentra el país con el nombre indicado, se retorna null.
 	 */
-	public List<Map<String, Object>> atletasPorPais(String nombrePais)
-	{
+	public List<Map<String, Object>> atletasPorPais(String nombrePais) {
 		List<Map<String, Object>> resultado = null;
 		Pais elPais = buscarPais(nombrePais);
-		if (elPais != null)
-		{
+		if (elPais != null) {
 			resultado = new ArrayList<Map<String, Object>>();
 			resultado = elPais.consultarAtletas();
 		}
@@ -155,20 +146,16 @@ public class CalculadoraEstadisticas
 	 *         la cantidad de medallistas. Si hay sólo un país que sea el que más
 	 *         medallas tenga, el mapa tiene sólo una llave.
 	 */
-	public Map<String, Integer> paisConMasMedallistas()
-	{
+	public Map<String, Integer> paisConMasMedallistas() {
 		Map<String, Integer> resultado = new HashMap<String, Integer>();
 
 		int mayorCantidadMedallistas = -1;
 
-		for (Pais unPais : paises)
-		{
+		for (Pais unPais : paises) {
 			int cantidadMedallistasPais = unPais.contarMedallistas();
 
-			if (cantidadMedallistasPais >= mayorCantidadMedallistas)
-			{
-				if (cantidadMedallistasPais > mayorCantidadMedallistas)
-				{
+			if (cantidadMedallistasPais >= mayorCantidadMedallistas) {
+				if (cantidadMedallistasPais > mayorCantidadMedallistas) {
 					resultado.clear();
 					mayorCantidadMedallistas = cantidadMedallistasPais;
 				}
@@ -188,14 +175,11 @@ public class CalculadoraEstadisticas
 	 *         evento. Si ningún atleta ha ganado una medalla en el evento o si el
 	 *         nombre no corresponde el de ningún evento, retorna una lista vacía.
 	 */
-	public List<Atleta> medallistasPorEvento(String nombreEvento)
-	{
+	public List<Atleta> medallistasPorEvento(String nombreEvento) {
 		Set<Atleta> medallistas = new HashSet<Atleta>();
 
-		for (Evento evento : eventos)
-		{
-			if (evento.darDeporte().equals(nombreEvento))
-			{
+		for (Evento evento : eventos) {
+			if (evento.darDeporte().equals(nombreEvento)) {
 				List<Atleta> medallistasEvento = evento.darMedallistas();
 				medallistas.addAll(medallistasEvento);
 			}
@@ -214,11 +198,9 @@ public class CalculadoraEstadisticas
 	 *         las llaves son los nombres de los atletas y los valores son las
 	 *         cantidades de medallas ganadas por el atleta correspondiente.
 	 */
-	public Map<String, Integer> atletasConMasMedallas(int cantidadMinimaMedallas)
-	{
+	public Map<String, Integer> atletasConMasMedallas(int cantidadMinimaMedallas) {
 		Map<String, Integer> medallistas = new HashMap<>();
-		for (Atleta atleta : atletas)
-		{
+		for (Atleta atleta : atletas) {
 			int cantidadMedallas = atleta.contarMedallas();
 			if (cantidadMedallas > cantidadMinimaMedallas)
 				medallistas.put(atleta.darNombre(), cantidadMedallas);
@@ -239,18 +221,14 @@ public class CalculadoraEstadisticas
 	 *         hay una entrada en el mapa donde la llave es el nombre del atleta y
 	 *         el valor es la cantidad de medallas que ganó.
 	 */
-	public Map<String, Integer> atletaEstrella()
-	{
+	public Map<String, Integer> atletaEstrella() {
 		Map<String, Integer> estrellas = new HashMap<>();
 		int mayorCantidad = 0;
 
-		for (Atleta atleta : atletas)
-		{
+		for (Atleta atleta : atletas) {
 			int cantidadMedallas = atleta.contarMedallas();
-			if (cantidadMedallas >= mayorCantidad)
-			{
-				if (cantidadMedallas > mayorCantidad)
-				{
+			if (cantidadMedallas >= mayorCantidad) {
+				if (cantidadMedallas > mayorCantidad) {
 					estrellas.clear();
 					mayorCantidad = cantidadMedallas;
 				}
@@ -277,39 +255,28 @@ public class CalculadoraEstadisticas
 	 *         arreglos con tres enteros: la cantidad de medallas de oro, la
 	 *         cantidad de medallas de plata y la cantidad de medallas de bronce.
 	 */
-	public Map<String, int[]> mejorPaisEvento(String nombreEvento)
-	{
+	public Map<String, int[]> mejorPaisEvento(String nombreEvento) {
 		int[] mejorResultado = { -1, -1, -1 };
 		Map<String, int[]> resultado = new HashMap<>();
 
-		for (Pais pais : paises)
-		{
+		for (Pais pais : paises) {
 			int[] medallasPais = pais.calcularMedallasEvento(nombreEvento);
 
-			if (medallasPais[0] > mejorResultado[0])
-			{
+			if (medallasPais[0] > mejorResultado[0]) {
 				mejorResultado = medallasPais;
 				resultado.clear();
 				resultado.put(pais.darNombre(), medallasPais);
-			}
-			else if (medallasPais[0] == mejorResultado[0])
-			{
-				if (medallasPais[1] > mejorResultado[1])
-				{
+			} else if (medallasPais[0] == mejorResultado[0]) {
+				if (medallasPais[1] > mejorResultado[1]) {
 					mejorResultado = medallasPais;
 					resultado.clear();
 					resultado.put(pais.darNombre(), medallasPais);
-				}
-				else if (medallasPais[1] == mejorResultado[1])
-				{
-					if (medallasPais[2] > mejorResultado[2])
-					{
+				} else if (medallasPais[1] == mejorResultado[1]) {
+					if (medallasPais[2] > mejorResultado[2]) {
 						mejorResultado = medallasPais;
 						resultado.clear();
 						resultado.put(pais.darNombre(), medallasPais);
-					}
-					else if (medallasPais[2] == mejorResultado[2])
-					{
+					} else if (medallasPais[2] == mejorResultado[2]) {
 						resultado.put(pais.darNombre(), medallasPais);
 					}
 				}
@@ -331,17 +298,14 @@ public class CalculadoraEstadisticas
 	 * 
 	 * @return El Atleta que ha participado en más deportes diferentes.
 	 */
-	public Atleta buscarAtletaTodoterreno()
-	{
+	public Atleta buscarAtletaTodoterreno() {
 		Atleta todoterreno = null;
 		int mayorCantidadDeportes = -1;
 
-		for (Atleta unAtleta : atletas)
-		{
+		for (Atleta unAtleta : atletas) {
 			int cantidadDeportes = unAtleta.contarDeportes();
 			if (cantidadDeportes > mayorCantidadDeportes || (cantidadDeportes == mayorCantidadDeportes
-					&& unAtleta.darNombre().compareTo(todoterreno.darNombre()) > 0))
-			{
+					&& unAtleta.darNombre().compareTo(todoterreno.darNombre()) > 0)) {
 				todoterreno = unAtleta;
 				mayorCantidadDeportes = cantidadDeportes;
 			}
@@ -364,12 +328,10 @@ public class CalculadoraEstadisticas
 	 *         el que el atleta ganó la medalla; y "medalla" que tiene asociado el
 	 *         tipo de medalla.
 	 */
-	public Map<String, List<Map<String, Object>>> medallistasPorNacionGenero(String nombrePais, Genero generoAtleta)
-	{
+	public Map<String, List<Map<String, Object>>> medallistasPorNacionGenero(String nombrePais, Genero generoAtleta) {
 		Map<String, List<Map<String, Object>>> resultado = null;
 		Pais elPais = buscarPais(nombrePais);
-		if (elPais != null)
-		{
+		if (elPais != null) {
 			resultado = elPais.consultarMedallistasGenero(generoAtleta);
 		}
 		return resultado;
@@ -382,12 +344,10 @@ public class CalculadoraEstadisticas
 	 * @return Un número entre 0 y 1 que indica el porcentaje de atletas que ha sido
 	 *         medallista
 	 */
-	public double porcentajeMedallistas()
-	{
+	public double porcentajeMedallistas() {
 		double cantidadAtletas = atletas.size();
 		double cantidadMedallistas = 0;
-		for (Atleta unAtleta : atletas)
-		{
+		for (Atleta unAtleta : atletas) {
 			if (unAtleta.esMedallista())
 				cantidadMedallistas++;
 		}
@@ -400,11 +360,9 @@ public class CalculadoraEstadisticas
 	 * @param nombrePais El nombre del país que se está buscando
 	 * @return El país con el nombre dado o null si no se encuentra.
 	 */
-	private Pais buscarPais(String nombrePais)
-	{
+	private Pais buscarPais(String nombrePais) {
 		Pais elPais = null;
-		for (int i = 0; i < paises.size() && elPais == null; i++)
-		{
+		for (int i = 0; i < paises.size() && elPais == null; i++) {
 			if (paises.get(i).darNombre().equals(nombrePais))
 				elPais = paises.get(i);
 		}
@@ -417,11 +375,9 @@ public class CalculadoraEstadisticas
 	 * @param nombreAtleta El nombre del atleta que se está buscando
 	 * @return El atleta con el nombre dado o null si no se encuentra.
 	 */
-	private Atleta buscarAtleta(String nombreAtleta)
-	{
+	private Atleta buscarAtleta(String nombreAtleta) {
 		Atleta elAtleta = null;
-		for (int i = 0; i < atletas.size() && elAtleta == null; i++)
-		{
+		for (int i = 0; i < atletas.size() && elAtleta == null; i++) {
 			if (atletas.get(i).darNombre().equals(nombreAtleta))
 				elAtleta = atletas.get(i);
 		}
@@ -433,15 +389,28 @@ public class CalculadoraEstadisticas
 	 * 
 	 * @return Colección con los nombres de los eventos, sin repetir
 	 */
-	public Collection<String> darNombresDeportes()
-	{
+	public Collection<String> darNombresDeportes() {
 		Collection<String> nombres = new HashSet<String>();
-		for (Evento evento : eventos)
-		{
+		for (Evento evento : eventos) {
 			nombres.add(evento.darDeporte());
 		}
 
 		return nombres;
+	}
+
+	/**
+	 * Retorna el pais del atleta buscado
+	 * 
+	 * @param nombreAtleta El nombre del atleta que se está buscando
+	 * @return El atleta con el nombre dado o null si no se encuentra.
+	 */
+	public Pais buscarPaisDeAtleta(String nombreAtleta) {
+		Pais pais = null;
+		Atleta atleta = buscarAtleta(nombreAtleta);
+		if (atleta != null) {
+			pais = atleta.darPais();
+		}
+		return pais;
 	}
 
 }
