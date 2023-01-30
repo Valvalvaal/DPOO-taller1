@@ -13,8 +13,7 @@ import uniandes.dpoo.taller0.modelo.Genero;
 import uniandes.dpoo.taller0.procesamiento.CalculadoraEstadisticas;
 import uniandes.dpoo.taller0.procesamiento.LoaderOlimpicos;
 
-public class ConsolaOlimpicos
-{
+public class ConsolaOlimpicos {
 	/**
 	 * Esta es la calculadora de estadísticas que se usará para hacer todas las
 	 * operaciones de la aplicación. Esta calculadora también contiene toda la
@@ -27,15 +26,12 @@ public class ConsolaOlimpicos
 	 * una opción, y ejecuta la opción seleccionada por el usuario. Este proceso se
 	 * repite hasta que el usuario seleccione la opción de abandonar la aplicación.
 	 */
-	public void ejecutarAplicacion()
-	{
+	public void ejecutarAplicacion() {
 		System.out.println("Estadísticas sobre los Juegos Olímpicos\n");
 
 		boolean continuar = true;
-		while (continuar)
-		{
-			try
-			{
+		while (continuar) {
+			try {
 				mostrarMenu();
 				int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 				if (opcion_seleccionada == 1)
@@ -62,22 +58,17 @@ public class ConsolaOlimpicos
 					ejecutarMedallistasPorNacionYGenero();
 				else if (opcion_seleccionada == 12 && calculadora != null)
 					ejecutarPorcentajeMedallistas();
-				else if (opcion_seleccionada == 13)
-				{
+				else if (opcion_seleccionada == 13 && calculadora != null)
+					ejecutarPaisDeAtleta();
+				else if (opcion_seleccionada == 14) {
 					System.out.println("Saliendo de la aplicación ...");
 					continuar = false;
-				}
-				else if (calculadora == null)
-				{
+				} else if (calculadora == null) {
 					System.out.println("Para poder ejecutar esta opción primero debe cargar un archivo de atletas.");
-				}
-				else
-				{
+				} else {
 					System.out.println("Por favor seleccione una opción válida.");
 				}
-			}
-			catch (NumberFormatException e)
-			{
+			} catch (NumberFormatException e) {
 				System.out.println("Debe seleccionar uno de los números de las opciones.");
 			}
 		}
@@ -87,8 +78,7 @@ public class ConsolaOlimpicos
 	 * Muestra al usuario el menú con las opciones para que escoja la siguiente
 	 * acción que quiere ejecutar.
 	 */
-	public void mostrarMenu()
-	{
+	public void mostrarMenu() {
 		System.out.println("\nOpciones de la aplicación\n");
 		System.out.println("1. Cargar un archivo de atletas");
 		System.out.println("2. Consultar los atletas de un año dado");
@@ -102,14 +92,14 @@ public class ConsolaOlimpicos
 		System.out.println("10. Consultar el atleta todoterreno");
 		System.out.println("11. Consultar los medallistas por país y género");
 		System.out.println("12. Consultar el porcentaje de atletas que son medallistas");
-		System.out.println("13. Salir de la aplicación\n");
+		System.out.println("13. Consultar país al que representa un atleta");
+		System.out.println("14. Salir de la aplicación\n");
 	}
 
 	/**
 	 * Le muestra el usuario el porcentaje de atletas que son medallistas
 	 */
-	private void ejecutarPorcentajeMedallistas()
-	{
+	private void ejecutarPorcentajeMedallistas() {
 		System.out.println("\n" + "Porcentaje de atletas que son medallistas" + "\n");
 
 		double porcentaje = calculadora.porcentajeMedallistas();
@@ -121,39 +111,30 @@ public class ConsolaOlimpicos
 	 * Le pide el usuario el nombre de un país y un género, y luego le muestra la
 	 * información de los medallistas de ese género que han representado a ese país.
 	 */
-	private void ejecutarMedallistasPorNacionYGenero()
-	{
+	private void ejecutarMedallistasPorNacionYGenero() {
 		System.out.println("\n" + "Medallistas por país y género" + "\n");
 
 		String pais = input("Por favor ingrese el nombre de un pais");
 		String genero = input("Por favor ingrese M para consultar hombres y F para consultar mujeres").toLowerCase();
 
-		if (!"m".equals(genero) && !"f".equals(genero))
-		{
+		if (!"m".equals(genero) && !"f".equals(genero)) {
 			System.out.println("Sólo puede seleccionar M o F");
-		}
-		else
-		{
+		} else {
 			Genero elGenero = genero.equals("m") ? Genero.MASCULINO : Genero.FEMENINO;
 			Map<String, List<Map<String, Object>>> medallistas = calculadora.medallistasPorNacionGenero(pais, elGenero);
 
-			if (medallistas != null)
-			{
-				for (Map.Entry<String, List<Map<String, Object>>> entry : medallistas.entrySet())
-				{
+			if (medallistas != null) {
+				for (Map.Entry<String, List<Map<String, Object>>> entry : medallistas.entrySet()) {
 					String nombre_atleta = entry.getKey();
 					List<Map<String, Object>> medallas = entry.getValue();
 
 					System.out.println("El atleta " + nombre_atleta + " ha ganado " + medallas.size() + " medallas.");
-					for (Map<String, Object> medalla : medallas)
-					{
+					for (Map<String, Object> medalla : medallas) {
 						System.out.println("Evento: " + medalla.get("evento") + " (" + medalla.get("anio") + ")");
 						System.out.println("    Medalla: " + medalla.get("medalla"));
 					}
 				}
-			}
-			else
-			{
+			} else {
 				System.out.println("No se encontraron medallistas del país ingresado.");
 			}
 		}
@@ -163,8 +144,7 @@ public class ConsolaOlimpicos
 	 * Le informa al usuario si hay un atleta todoterreno y la cantidad de deportes
 	 * diferentes en los que ha participado
 	 */
-	private void ejecutarTodoterreno()
-	{
+	private void ejecutarTodoterreno() {
 		System.out.println("\n" + "Atleta todoterreno" + "\n");
 
 		Atleta todoterreno = calculadora.buscarAtletaTodoterreno();
@@ -176,29 +156,22 @@ public class ConsolaOlimpicos
 	 * Le pide al usuario el nombre de un evento y luego le informa cuál es el mejor
 	 * país en ese evento.
 	 */
-	private void ejecutarMejorPaisEnUnEvento()
-	{
+	private void ejecutarMejorPaisEnUnEvento() {
 		System.out.println("\n" + "Mejor país en un evento" + "\n");
 
 		String evento = input("Por favor ingrese el nombre de un evento");
 		Map<String, int[]> mejores = calculadora.mejorPaisEvento(evento);
-		if (mejores.size() == 0)
-		{
+		if (mejores.size() == 0) {
 			System.out.println("No se encontró información sobre el evento: " + evento);
-		}
-		else if (mejores.size() == 1)
-		{
+		} else if (mejores.size() == 1) {
 			String pais = mejores.keySet().iterator().next();
 			System.out.println("El mejor país en " + evento + " es " + pais + ":");
 			int[] medallas = mejores.get(pais);
 			System.out.println(
 					"Ha gando: " + medallas[0] + " oros, " + medallas[1] + " platas, " + medallas[2] + " bronces.");
-		}
-		else
-		{
+		} else {
 			System.out.println("Hay un empate en " + evento + ":");
-			for (Map.Entry<String, int[]> entry : mejores.entrySet())
-			{
+			for (Map.Entry<String, int[]> entry : mejores.entrySet()) {
 				int[] medallas = entry.getValue();
 				System.out.println(entry.getKey() + "ha gando: " + medallas[0] + " oros, " + medallas[1] + " platas, "
 						+ medallas[2] + " bronces.");
@@ -209,13 +182,11 @@ public class ConsolaOlimpicos
 	/**
 	 * Muestra cuáles han sido los atletas (o el atleta) que más medallas ha ganado.
 	 */
-	private void ejecutarAtletaEstrella()
-	{
+	private void ejecutarAtletaEstrella() {
 		System.out.println("\n" + "Atleta estrella de todos los tiempos" + "\n");
 
 		Map<String, Integer> estrellas = calculadora.atletaEstrella();
-		for (Map.Entry<String, Integer> entry : estrellas.entrySet())
-		{
+		for (Map.Entry<String, Integer> entry : estrellas.entrySet()) {
 			String nombre = entry.getKey();
 			int medallas = entry.getValue();
 			System.out.println(nombre + " ganó " + medallas + " medallas");
@@ -227,25 +198,20 @@ public class ConsolaOlimpicos
 	 * Le pide al usuario una cantidad mínima de medallas y luego le muestra la
 	 * información de los atletas que han ganado más de esa cantidad de medallas.
 	 */
-	private void ejecutarAtletasConMasMedallasQue()
-	{
+	private void ejecutarAtletasConMasMedallasQue() {
 		System.out.println("\n" + "Atletas con mínimo de medallas" + "\n");
 
-		try
-		{
+		try {
 			int cantidadMinima = Integer.parseInt(input("Ingrese la cantidad mínima de medallas"));
 			Map<String, Integer> atletas = calculadora.atletasConMasMedallas(cantidadMinima);
 			System.out.println(
 					"Hay " + atletas.size() + " atletas que han ganado más de " + cantidadMinima + " medallas.");
-			for (Map.Entry<String, Integer> entry : atletas.entrySet())
-			{
+			for (Map.Entry<String, Integer> entry : atletas.entrySet()) {
 				String nombre = entry.getKey();
 				int medallas = entry.getValue();
 				System.out.println(nombre + " ganó " + medallas + " medallas");
 			}
-		}
-		catch (NumberFormatException nfe)
-		{
+		} catch (NumberFormatException nfe) {
 			System.out.println("El número ingresado no es válido. Por favor escriba un número entero.");
 		}
 	}
@@ -254,16 +220,14 @@ public class ConsolaOlimpicos
 	 * Le pide al usuario el nombre de un evento y muestra los atletas que han sido
 	 * medallistas en ese envento.
 	 */
-	private void ejecutarMedallistasPorEvento()
-	{
+	private void ejecutarMedallistasPorEvento() {
 		System.out.println("\n" + "Medallistas de un evento" + "\n");
 
 		String evento = input("Por favor ingrese el nombre de un evento");
 		List<Atleta> medallistas = calculadora.medallistasPorEvento(evento);
 		System.out.println("Los medallistas de " + evento + "son:");
 		int num = 1;
-		for (Atleta atleta : medallistas)
-		{
+		for (Atleta atleta : medallistas) {
 			System.out.println("" + num + ". - " + atleta.darNombre());
 			num++;
 		}
@@ -272,17 +236,14 @@ public class ConsolaOlimpicos
 	/**
 	 * Consulta el país (o los países) con más medallistas
 	 */
-	private void ejecutarPaisConMasMedallistas()
-	{
+	private void ejecutarPaisConMasMedallistas() {
 		System.out.println("\n" + "País con más medallistas" + "\n");
 
 		Map<String, Integer> paises = calculadora.paisConMasMedallistas();
-		if (paises.size() > 1)
-		{
+		if (paises.size() > 1) {
 			System.out.println("Hay " + paises.size() + " países empatados en el primer lugar.");
 		}
-		for (String nombre : paises.keySet())
-		{
+		for (String nombre : paises.keySet()) {
 			System.out.println(nombre + " ha tenido " + paises.get(nombre) + " medallistas");
 		}
 	}
@@ -291,20 +252,15 @@ public class ConsolaOlimpicos
 	 * Le pide al usuario el nombre de un país y luego le muestra la información de
 	 * todos los atletas de ese país.
 	 */
-	private void ejecutarAtletasPorPais()
-	{
+	private void ejecutarAtletasPorPais() {
 		System.out.println("\n" + "Atletas de un país" + "\n");
 
 		String pais = input("Por favor ingrese el nombre de un pais");
 		List<Map<String, Object>> atletas = calculadora.atletasPorPais(pais);
-		if (atletas == null)
-		{
+		if (atletas == null) {
 			System.out.println("No existe un país con ese nombre");
-		}
-		else
-		{
-			for (Map<String, Object> datos : atletas)
-			{
+		} else {
+			for (Map<String, Object> datos : atletas) {
 				String nombre = (String) datos.get("nombre");
 				String evento = (String) datos.get("evento");
 				int anio = (int) datos.get("anio");
@@ -318,31 +274,23 @@ public class ConsolaOlimpicos
 	 * le muestra al usuario todas las medallas ganadas por el atleta en ese rango
 	 * de años.
 	 */
-	private void ejecutarMedallasEnRango()
-	{
+	private void ejecutarMedallasEnRango() {
 		System.out.println("\n" + "Medallas de un atleta en un periodo" + "\n");
-		try
-		{
+		try {
 			int anio_inicial = Integer.parseInt(input("Ingrese el año inicial para el rango"));
 			int anio_final = Integer.parseInt(input("Ingrese el año final para el rango"));
 			String nombre_atleta = input("Ingrese el nombre del atleta que le interesa");
 			List<Map<String, Object>> medallas = calculadora.medallasEnRango(anio_inicial, anio_final, nombre_atleta);
-			if (medallas == null)
-			{
+			if (medallas == null) {
 				System.out.println("No se encontró un atleta llamado " + nombre_atleta);
-			}
-			else
-			{
+			} else {
 				System.out.println("El atleta " + nombre_atleta + " ha ganado " + medallas.size() + " medallas.");
-				for (Map<String, Object> medalla : medallas)
-				{
+				for (Map<String, Object> medalla : medallas) {
 					System.out.println("Evento: " + medalla.get("evento") + " (" + medalla.get("anio") + ")");
 					System.out.println("    Medalla: " + medalla.get("medalla"));
 				}
 			}
-		}
-		catch (NumberFormatException nfe)
-		{
+		} catch (NumberFormatException nfe) {
 			System.out.println("El número ingresado no es válido. Por favor escriba un número entero.");
 		}
 	}
@@ -350,15 +298,13 @@ public class ConsolaOlimpicos
 	/**
 	 * Ejecuta la opción para consultar los atletas de un año.
 	 */
-	private void ejecutarAtletasPorAnio()
-	{
+	private void ejecutarAtletasPorAnio() {
 		System.out.println("\n" + "Medallas de un atleta en un periodo" + "\n");
 
 		int anio = Integer.parseInt(input("Ingrese el año de su interés"));
 		Map<String, List<Atleta>> atletas = calculadora.atletasPorAnio(anio);
 		System.out.println("Se encontraron " + atletas.size() + " atletas");
-		for (String deporte : atletas.keySet())
-		{
+		for (String deporte : atletas.keySet()) {
 			System.out.println(deporte + ": " + atletas.get(deporte).size() + " atletas");
 		}
 	}
@@ -369,28 +315,21 @@ public class ConsolaOlimpicos
 	 * CalculadoraEstadisticas para que sea usado por las otras opciones de la
 	 * consola.
 	 */
-	private void ejecutarCargarAtletas()
-	{
+	private void ejecutarCargarAtletas() {
 		System.out.println("\n" + "Cargar un archivo de atletas" + "\n");
 
 		String archivo = input("Por favor ingrese el nombre del archivo CSV con los atletas");
-		try
-		{
+		try {
 			calculadora = LoaderOlimpicos.cargarArchivo(archivo);
 			System.out.println("Se cargó el archivo " + archivo + " con información de los Juegos Olímpicos.");
 			Collection<String> eventos = calculadora.darNombresDeportes();
 			System.out.println("Los deportes para los que se tiene información son:");
-			for (String dep : eventos)
-			{
+			for (String dep : eventos) {
 				System.out.println(" - " + dep);
 			}
-		}
-		catch (FileNotFoundException e)
-		{
+		} catch (FileNotFoundException e) {
 			System.out.println("ERROR: el archivo indicado no se encontró.");
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("ERROR: hubo un problema leyendo el archivo.");
 			System.out.println(e.getMessage());
 		}
@@ -404,16 +343,12 @@ public class ConsolaOlimpicos
 	 * @param mensaje El mensaje que se le mostrará al usuario
 	 * @return La cadena de caracteres que el usuario escriba como respuesta.
 	 */
-	public String input(String mensaje)
-	{
-		try
-		{
+	public String input(String mensaje) {
+		try {
 			System.out.print(mensaje + ": ");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			return reader.readLine();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("Error leyendo de la consola");
 			e.printStackTrace();
 		}
@@ -427,8 +362,7 @@ public class ConsolaOlimpicos
 	 * @param args Parámetros introducidos en la línea de comandos al invocar la
 	 *             aplicación
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		ConsolaOlimpicos consola = new ConsolaOlimpicos();
 		consola.ejecutarAplicacion();
 	}
