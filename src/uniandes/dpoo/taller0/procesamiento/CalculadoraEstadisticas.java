@@ -399,6 +399,10 @@ public class CalculadoraEstadisticas {
 	}
 
 	/**
+	 * MODIFICACIONES TALLER
+	 */
+
+	/**
 	 * Retorna el pais del atleta buscado
 	 * 
 	 * @param nombreAtleta El nombre del atleta que se está buscando
